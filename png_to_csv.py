@@ -12,7 +12,7 @@ def png_to_csv(filename):
     img = cv2.resize(img, (8,8) ) # resize image
     if len(img.shape) == 3:  # if three channels
         img = img[:,:,0]     # just take one
-    
+    # new comment
 
     flattened_array = img.flatten()
     print(f"flattened_array is {flattened_array}")
