@@ -120,10 +120,10 @@ class NeuralNet:
             from sklearn.preprocessing import StandardScaler
             scaler = StandardScaler()
             scaler.fit(self.X_known)   # Fit only to the training dataframe
-            # now, rescale inputs -- both testing and training
+            # rescale inputs: both testing and training
             self.X_known = scaler.transform(self.X_train)
             self.X_test = scaler.transform(self.X_test)
-            #X_unknown = scaler.transform(X_unknown)
+            
 
         # write png to csv to create data set
         # train_csv = []
@@ -131,16 +131,18 @@ class NeuralNet:
         # for i in range(200):
         #     train_csv += [png_to_csv(f'mask{i}.png')]
         #     train_csv += [png_to_csv2(f'face{i}.png')]
+        
 
         # write_to_csv(train_csv, 'training_data.csv')
 
-        # print(y_train)
+        print("\n\n++++++++++  TRAINING  +++++++++++++++\n\n")
 
+        # train neural network
         self.mlp = MLPClassifier(hidden_layer_sizes=(128,100), max_iter=400, alpha=1e-6,
                             solver='adam', verbose=True, shuffle=True, early_stopping = False, tol=1e-4, 
                             random_state=None, # reproduceability
                             learning_rate_init=.003, learning_rate = 'adaptive')
-        print("\n\n++++++++++  TRAINING  +++++++++++++++\n\n")
+        
         self.mlp.fit(self.X_train, self.y_train)
 
 
@@ -219,11 +221,11 @@ class NeuralNet:
                 if USE_SCALER == True:
                     from sklearn.preprocessing import StandardScaler
                     scaler = StandardScaler()
-                    scaler.fit(self.X_known)   # Fit only to the training dataframe
-                    # now, rescale inputs -- both testing and training
-                    self.X_known = scaler.transform(self.X_train)
-                    self.X_test = scaler.transform(self.X_test)
-                    #X_unknown = scaler.transform(X_unknown)
+                    # scaler.fit(self.X_known)   # Fit only to the training dataframe
+                    # # now, rescale inputs -- both testing and training
+                    # self.X_known = scaler.transform(self.X_train)
+                    # self.X_test = scaler.transform(self.X_test)
+                    # #X_unknown = scaler.transform(X_unknown)
                     X_data_live = scaler.transform(X_data_live)
                 prediction = self.mlp.predict(X_data_live)
                 print(prediction)
