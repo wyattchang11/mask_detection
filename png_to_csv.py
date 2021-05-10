@@ -13,6 +13,7 @@ def png_to_csv(filename):
     if len(img.shape) == 3:  # if three channels
         img = img[:,:,0]     # just take one
     # new comment
+    # suggestion
 
     flattened_array = img.flatten()
     print(f"flattened_array is {flattened_array}")
